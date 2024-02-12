@@ -1,3 +1,12 @@
+# Lista de pacotes
+packages <- c("shiny", "svDialogs", "readr", "writexl", "readxl", "tidyr", 
+              "tidyverse", "ggplot2", "ggpubr", "scales", "dplyr", "broom", 
+              "matrixStats", "purrr", "stringr", "plotly", "ggthemes", "flux")
+
+# Instalar pacotes que ainda não estão instalados
+new_packages <- packages[!(packages %in% installed.packages()[,"Package"])]
+if(length(new_packages)) install.packages(new_packages)
+
 library(shiny)
 library(svDialogs)
 library(readr)
@@ -127,6 +136,7 @@ gerar_db_idls <- function(db_fotons_wider){
   return(db_idl)
 }
 
+
 diretorio <- selecionar_diretorio()
 lista_arquivos <- list.files(pattern = '\\.xls', full.names = TRUE)
 
@@ -157,7 +167,7 @@ ggplot(db_idl, aes(x = Concentracao, y = idl)) +
   geom_smooth(method = "lm", formula = y ~ poly(x, 2), se = FALSE) +
   # Ajuste o número de marcas nos eixos x e y
   scale_x_continuous(breaks = seq(min(db_idl$Concentracao), max(db_idl$Concentracao), by = 1)) +
-  scale_y_continuous(breaks = seq(min(db_idl$idl), max(db_idl$idl), by = 1)) +
+ 
   # Adicione rótulos aos eixos
   labs(x = "Concentração", y = "IDL(%)") +
   # Adicione um título ao gráfico
